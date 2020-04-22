@@ -57,7 +57,7 @@ function Person() { //Check B12 structure in the planning doc
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car() { //
 
 }
 
