@@ -39,9 +39,46 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() { //Check B12 structure in the planning doc
+function Person(name, age) {
+
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 
 }
+
+Person.prototype.eat = function(food) { //Adds function "eat" to the constructor function above
+
+  if(this.stomach.length === 10) {
+
+    return;
+
+  }else {
+
+      this.stomach.push(food);
+  }
+}
+
+Person.prototype.poop = function() {
+
+  this.stomach = [];
+
+}
+
+Person.prototype.toString = function() {
+
+  return this.name + ", " + this.age;
+
+}
+
+const Henry = new Person("Henry", 40);
+
+Henry.eat("Bacon");
+Henry.poop();
+Henry.toString();
+
+
+console.log(Henry);
 
 /*
   TASK 2
@@ -57,7 +94,36 @@ function Person() { //Check B12 structure in the planning doc
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() { //
+function Car(model, milesPerGallon) {
+
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+
+}
+
+Car.prototype.fill = function(gallons) {
+
+  this.tank += gallons;
+
+}
+
+Car.prototype.drive = function(distance) {
+
+  if(this.tank >= distance / this.milesPerGallon) {
+
+    this.tank -= distance / this.milesPerGallon;
+    this.odometer = distance;
+
+  }else{
+
+    this.odometer = this.tank * this.milesPerGallon;
+    this.tank = 0;
+
+    return "I ran out of fuel at " + this.odometer + "miles!";
+
+  }
 
 }
 
@@ -68,18 +134,33 @@ function Car() { //
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+
+  this.name = name;
+
+  this.age = age;
+
+  this.favoriteToy = favoriteToy;
 
 }
+
+Baby.prototype = new Person();
+
+Baby.prototype.play = function() {
+
+  return "Playing with " + this.favoriteToy;
+
+}
+
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window binding - Whenever none of the other "principles" are followed "this" will refer to the window object.
+  2. Implicit binding - The object to the left of the dot (when the function is invoked) is what "this" refers to.
+  3. Explicit binding - Explicity stating what "this" references using .call(), .apply() or .bind() where the object referenced is passed as the first argument.
+  4. New binding - This lets you create a new object from a constructor function while passing in arguments. The "this" keyword will be bound to the new object.
 */
 
 
